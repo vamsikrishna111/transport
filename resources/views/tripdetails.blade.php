@@ -143,7 +143,7 @@
                         <div class="col-md-4">
                            <div class="formgroup">
                               <!-- <input type="date" class="form-control" id="birthday" name="birthday"> -->
-                              <input class="date form-control"  type="date" id="datepicker1" name="startdate">
+                              <input class="date form-control" type="date" id="datepicker1" name="startdate">
 
                            </div>
                         </div>
@@ -152,13 +152,13 @@
                      </div>
 
                      <div class="row mt-5">
-                     <div class="col-md-4">
-                     <div class="formgroup">
+                        <div class="col-md-4">
+                           <div class="formgroup">
                               <!-- <input type="date" class="form-control" id="birthday" name="birthday"> -->
-                              <input class="date form-control"  type="date" id="datepicker2" name="enddate">
+                              <input class="date form-control" type="date" id="datepicker2" name="enddate">
 
                            </div>
-                     </div>
+                        </div>
                      </div>
                   </div>
                   <div class='pull-right' style="float:right">
@@ -203,13 +203,15 @@
                      <td>{{ $book->tripcost}}</td>
 
                      <td>
+                        <button class="show-modal btn btn-info" data-id="{{$book->id}}" data-vehiclenumber="{{ $book->vehiclenumber}}" data-startlocation="{{$book->startlocation}}" data-endlocation="{{$book->endlocation}}" data-tripcost="{{$book->tripcost}}" data-advance="{{$book->advance}}" data-totalkm="{{$book->totalkm}}" data-dieselcost="{{$book->dieselcost}}" data-existingdiesel="{{$book->existingdiesel}}" data-fillup="{{$book->fillup}}" data-totaldiesel="{{$book->totaldiesel}}" data-finalbill="{{asset ('/images/'.$book->finalbill) }}">
+                           <span class="glyphicon glyphicon-edit"></span> show</button>
+
                         <button class="edit-modal btn btn-info" data-id="{{$book->id}}" data-vehiclenumber="{{ $book->vehiclenumber}}" data-startlocation="{{$book->startlocation}}" data-endlocation="{{$book->endlocation}}" data-tripcost="{{$book->tripcost}}" data-advance="{{$book->advance}}" data-totalkm="{{$book->totalkm}}" data-dieselcost="{{$book->dieselcost}}" data-existingdiesel="{{$book->existingdiesel}}" data-fillup="{{$book->fillup}}" data-totaldiesel="{{$book->totaldiesel}}" data-finalbill="{{asset ('/images/'.$book->finalbill) }}">
                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
 
 
-
-                        <a href="delete/{{$book->id}}"><i class="fa fa-trash" style="font-size:24px"></i></td>
-
+                        <a href="delete/{{$book->id}}"><i class="fa fa-trash" style="font-size:24px"></i></a>
+                        <a href="download/{{$book->finalbill}}"><i class="fa fa-download" aria-hidden="true"></i></a></td>
                      <!-- <td>
     <img src="{{asset ('/images/'.$book->finalbill) }}" style="height:40px; width:30px"/>
                
@@ -376,7 +378,7 @@
                            <p class="errorfinalbill text-center bg-light text-danger hidden"></p>
                            <div>
 
-                              <img id="myImage" src="#" style="height:70px; width:70px">
+                              <iframe id="myImage" src="#" style="height:70px; width:70px"></iframe>
                            </div>
                         </div>
                      </div>
@@ -406,13 +408,204 @@
          </div>
       </div>
    </div>
+
+
+
+
+
+
+
+
+
+   <!-----------------------------start show ------------------------------------------------->
+   <div id="showModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h2 class="text-danger">Show Lorry Details</h2>
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+               <form class="form-horizontal" id=show_form role="form">
+                  {{ csrf_field() }}
+                  <div class="form-group">
+                     <div class="col-sm-10">
+                        <input type="text" class="form-control" id="id_show" disabled hidden>
+                     </div>
+                  </div>
+                  <!-------------------first row ------------------------------------------>
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+
+                           <label class="control-label col-sm-2" for="vehiclenumber">vehiclenumber:</label>
+
+                           <input type="text" class="form-control" name="vehiclenumber" placeholder="Vehiclenumber" id="vehiclenumber_show" autofocus>
+                           <p class="errorvehiclenumber text-center bg-light text-danger hidden"></p>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="vehiclenumber">startlocation:</label>
+
+                           <input type="text" class="form-control" name="startlocation" placeholder="StartLocation" id="startlocation_show" autofocus>
+                           <p class="errorstartlocation text-center bg-light text-danger hidden mt-3"></p>
+
+                        </div>
+                     </div>
+                  </div>
+                  <!--------------------------second row ------------------------------------->
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+
+                           <label class="control-label col-sm-2" for="vehiclenumber">endlocation:</label>
+
+                           <input type="text" class="form-control" name="endlocation" placeholder="EndLocation" id="endlocation_show" autofocus>
+                           <p class="errorendlocation text-center bg-light text-danger hidden"></p>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="vehiclenumber">tripcost:</label>
+
+                           <input type="text" class="form-control" name="tripcost" placeholder="TripCost" id="tripcost_show" autofocus>
+                           <p class="errortripcost text-center bg-light text-danger hidden mt-3"></p>
+
+                        </div>
+                     </div>
+                  </div>
+
+
+                  <!--------------------------  third row----------------------------------------->
+
+
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+
+                           <label class="control-label col-sm-2" for="vehiclenumber">Advance:</label>
+
+                           <input type="text" class="form-control" name="advance" placeholder="Advance" id="advance_show" autofocus>
+                           <p class="erroradvance text-center bg-light text-danger hidden"></p>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="vehiclenumber">Totalkm:</label>
+
+                           <input type="text" class="form-control" name="totalkm" placeholder="Totalkm" id="totalkm_show" autofocus>
+                           <p class="errortotalkm text-center bg-light text-danger hidden mt-3"></p>
+
+                        </div>
+                     </div>
+                  </div>
+
+
+                  <!------------------------------fourth row ------------------------------------------>
+
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+
+                           <label class="control-label col-sm-2" for="vehiclenumber">DieslCost:</label>
+
+                           <input type="text" class="form-control" name="dieselcost" placeholder="DieslCost" id="dieselcost_show" autofocus>
+                           <p class="errordieselcost text-center bg-light text-danger hidden"></p>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="vehiclenumber">ExistingDiesel:</label>
+
+                           <input type="text" class="form-control" name="existingdiesel" placeholder="ExistingDiesel" id="existingdiesel_show" autofocus>
+                           <p class="errorexistingdiesel text-center bg-light text-danger hidden mt-3"></p>
+
+                        </div>
+                     </div>
+                  </div>
+
+                  <!----------------------firth row----------------------------------------------->
+
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+
+                           <label class="control-label col-sm-2" for="vehiclenumber">FillUp:</label>
+
+                           <input type="text" class="form-control" name="fillup" placeholder="FillUp" id="fillup_show" autofocus>
+                           <p class="errorfillup text-center bg-light text-danger hidden"></p>
+
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <label class="control-label col-sm-2" for="vehiclenumber">totaldiesel:</label>
+
+                           <input type="text" class="form-control" name="totaldiesel" placeholder="Total Diesel" id="totaldiesel_show" autofocus>
+                           <p class="errortotaldiesel text-center bg-light text-danger hidden mt-3"></p>
+
+
+                        </div>
+                     </div>
+                  </div>
+
+
+
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+
+                           <label class="control-label col-sm-2" for="vehiclenumber">Finalbill:</label>
+
+                            <p class="errorfinalbill text-center bg-light text-danger hidden"></p>
+                           <div>
+
+                              <iframe id="file" src="#" style="height:250px; width:250px"></iframe>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+               </form>
+               <div class="modal-footer">
+               
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">
+                     <span class='glyphicon glyphicon-remove'></span> Close
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+
+
+   <!---------------------------------------end show ----------------------------------------------->
    <script type="text/javascript">
-        $('#datepicker').datepicker({
-            autoclose: true,
-            format: 'yyyy-mm-dd'
-         });
-    </script>
-   <script>
+      $('#datepicker').datepicker({
+         autoclose: true,
+         format: 'yyyy-mm-dd'
+      });
+   </script>
+   <script type="text/javascript">
       $(document).on('click', '.edit-modal', function() {
          $('.modal-title').text('Edit');
          $('#id_edit').val($(this).data('id'));
@@ -536,6 +729,33 @@
                }
             }
          })
+      })
+
+    
+
+      $(document).on('click', '.show-modal', function() {
+         $('.modal-title').text('Show');
+         $('#id_show').val($(this).data('id'));
+         $('#vehiclenumber_show').val($(this).data('vehiclenumber'));
+         $('#startlocation_show').val($(this).data('startlocation'));
+         $('#endlocation_show').val($(this).data('endlocation'));
+         $('#tripcost_show').val($(this).data('tripcost'));
+         $('#advance_show').val($(this).data('advance'));
+         $('#totalkm_show').val($(this).data('totalkm'));
+         $('#dieselcost_show').val($(this).data('dieselcost'));
+         $('#existingdiesel_show').val($(this).data('existingdiesel'));
+         $('#fillup_show').val($(this).data('fillup'));
+         $('#totaldiesel_show').val($(this).data('totaldiesel'));
+         $('#file').val($(this).data('finalbill'));
+         var imgvalue = $('#file').val();
+         
+        
+
+         $('#file').attr('src', imgvalue);
+
+         id = $('#id_edit').val();
+
+         $('#showModal').modal('show');
       })
    </script>
 

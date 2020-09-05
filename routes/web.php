@@ -39,4 +39,5 @@ Route::get('role/{age?}',[
  Route::get('delete/{id}','usercontroller@delete');
  Route::get('picklorry','usercontroller@picklorry');
  Route::post('selectlorry','usercontroller@selectlorry');
+ Route::get('download/{finalbill}','usercontroller@download');
 

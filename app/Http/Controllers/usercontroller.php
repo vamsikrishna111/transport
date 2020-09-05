@@ -553,6 +553,11 @@ else{
         $users=lorrydetails::where('id',[$id])->delete();
         return redirect('lorrydetails');
      }
+     public function download($file){
+        $downlaod= public_path(). "/images/$file";
+        return response()->download($downlaod);
+       
+     }
 public function picklorry(Request $r){
                     $data= $r->session()->get('data');
        $companyname= $data[0]->companyname;
