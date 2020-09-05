@@ -37,3 +37,6 @@ Route::get('role/{age?}',[
  Route::get('lorrydetailsedit/{id}','usercontroller@lorrydetailsedit');
  Route::post('lorrydetailsedit/{id}','usercontroller@lorrydetailsupdate');
  Route::get('delete/{id}','usercontroller@delete');
+ Route::get('picklorry','usercontroller@picklorry');
+ Route::post('selectlorry','usercontroller@selectlorry');
+

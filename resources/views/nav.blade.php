@@ -68,8 +68,8 @@
       <div class="sidebar-heading">
   </div>
       <div class="list-group list-group-flush" >
-        <a href="{{url('lorrydetails')}}" class="list-group-item list-group-item-action bg-light">Trip Details</a>
-        <a href="{{url('lorrydetails')}}" class="list-group-item list-group-item-action bg-light">menu2</a>
+        <a href="{{url('lorrydetails')}}" class="list-group-item list-group-item-action bg-light">lorry Details</a>
+        <a  href="{{url('picklorry')}}" class="list-group-item list-group-item-action bg-light">Select lorry</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">menu3</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">menu4</a>
       </div>

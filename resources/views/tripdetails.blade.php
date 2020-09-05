@@ -143,12 +143,22 @@
                         <div class="col-md-4">
                            <div class="formgroup">
                               <!-- <input type="date" class="form-control" id="birthday" name="birthday"> -->
-                              <input class="date form-control"  type="date" id="datepicker" name="date">
+                              <input class="date form-control"  type="date" id="datepicker1" name="startdate">
 
                            </div>
                         </div>
 
 
+                     </div>
+
+                     <div class="row mt-5">
+                     <div class="col-md-4">
+                     <div class="formgroup">
+                              <!-- <input type="date" class="form-control" id="birthday" name="birthday"> -->
+                              <input class="date form-control"  type="date" id="datepicker2" name="enddate">
+
+                           </div>
+                     </div>
                      </div>
                   </div>
                   <div class='pull-right' style="float:right">
