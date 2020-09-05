@@ -211,7 +211,7 @@
 
 
                         <a href="delete/{{$book->id}}"><i class="fa fa-trash" style="font-size:24px"></i></a>
-                        <a href="download/{{$book->finalbill}}"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+                        <!-- <a href="download/{{$book->finalbill}}"><i class="fa fa-download" aria-hidden="true"></i></a></td> -->
                      <!-- <td>
     <img src="{{asset ('/images/'.$book->finalbill) }}" style="height:40px; width:30px"/>
                
@@ -566,6 +566,8 @@
                            <div>
 
                               <iframe id="file" src="#" style="height:250px; width:250px"></iframe>
+                              <a href="#" id="download" name="download"><i class="fa fa-download" style="font-size:24px;" aria-hidden="true"></i></a>download</td>
+
                            </div>
                         </div>
                      </div>
@@ -621,9 +623,9 @@
          $('#totaldiesel_edit').val($(this).data('totaldiesel'));
          $('#myImage').val($(this).data('finalbill'));
          var imgvalue = $('#myImage').val();
-
+             // alert(imgvalue)
          $('#myImage').attr('src', imgvalue);
-
+     
          id = $('#id_edit').val();
 
          $('#editModal').modal('show');
@@ -748,12 +750,17 @@
          $('#totaldiesel_show').val($(this).data('totaldiesel'));
          $('#file').val($(this).data('finalbill'));
          var imgvalue = $('#file').val();
-         
         
-
+         
          $('#file').attr('src', imgvalue);
+       
+         //alert(imgvalue);
+      var res = imgvalue.substr(39)
+     
+         $('#download').attr('href', 'download/' + res);
+    
 
-         id = $('#id_edit').val();
+         id = $('#id_show').val();
 
          $('#showModal').modal('show');
       })
