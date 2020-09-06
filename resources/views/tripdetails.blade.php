@@ -212,7 +212,9 @@
 
                         <a href="delete/{{$book->id}}"><i class="fa fa-trash" style="font-size:24px"></i></a>
                         <!-- <a href="download/{{$book->finalbill}}"><i class="fa fa-download" aria-hidden="true"></i></a></td> -->
-                     <!-- <td>
+                                             <a href="selectdownload/{{$book->id}}"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+
+                        <!-- <td>
     <img src="{{asset ('/images/'.$book->finalbill) }}" style="height:40px; width:30px"/>
                
                 </td> -->
@@ -755,12 +757,13 @@
          $('#file').attr('src', imgvalue);
        
          //alert(imgvalue);
-      var res = imgvalue.substr(39)
+      var res = imgvalue.substr(29)
      
          $('#download').attr('href', 'download/' + res);
-    
-
+      
          id = $('#id_show').val();
+        // $('#download').attr('href', ' selectdownload/' + id);
+
 
          $('#showModal').modal('show');
       })

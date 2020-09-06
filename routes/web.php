@@ -40,4 +40,5 @@ Route::get('role/{age?}',[
  Route::get('picklorry','usercontroller@picklorry');
  Route::post('selectlorry','usercontroller@selectlorry');
  Route::get('download/{finalbill}','usercontroller@download');
+ Route::get('selectdownload/{id}','usercontroller@selectdownload');
 
