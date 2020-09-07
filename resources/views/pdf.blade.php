@@ -39,8 +39,10 @@
         <td>
         <!-- {{$value->startlocation}} -->
 
-        <img src="images/lorry.jpg" style="width: 100px; height: 100px">
-
+        <div>
+           
+           <iframe src="{{asset ('/images/'.$value->finalbill) }}" style="height:70px; width:70px"></iframe>
+   </div>
         </td>
         <td>
           {{$value->endlocation}}
