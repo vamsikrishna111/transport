@@ -28,6 +28,8 @@ class CreateLorrydetailsTable extends Migration
             $table->string('existingdiesel');
             $table->string('fillup');
             $table->string('totaldiesel');
+            $table->string('startdate');
+            $table->string('enddate');
             $table->string('finalbill');
 
 
