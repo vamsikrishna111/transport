@@ -37,12 +37,9 @@
           {{$value->vehiclenumber}}
         </td>
         <td>
-        <!-- {{$value->startlocation}} -->
+        {{$value->startlocation}}
 
-        <div>
-           
-           <iframe src="{{asset ('/images/'.$value->finalbill) }}" style="height:70px; width:70px"></iframe>
-   </div>
+       
         </td>
         <td>
           {{$value->endlocation}}

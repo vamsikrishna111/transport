@@ -13,15 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('login','usercontroller@login');
+Route::get('/','usercontroller@login');
 Route::get('register','usercontroller@register');
+
 Route::post('registerinsert','usercontroller@insertregister');
 Route::post('companylogin','usercontroller@companylogin');
  Route::post('dashboard','usercontroller@dashboard');
+ Route::get('viewdashboard','usercontroller@viewdashboard');
  Route::get('dropdown','usercontroller@dropdown');
 
 
@@ -32,6 +34,8 @@ Route::get('role/{age?}',[
     'middleware' => 'age',
     'uses' => 'usercontroller@divide',
  ]);
+ Route::group(['middleware' => ['age']], function () {
+
  Route::get('lorrydetails','usercontroller@lorrydetails');
  Route::post('insertlorrydetails','usercontroller@insertlorrydetails');
  Route::get('lorrydetailsedit/{id}','usercontroller@lorrydetailsedit');
@@ -41,4 +45,7 @@ Route::get('role/{age?}',[
  Route::post('selectlorry','usercontroller@selectlorry');
  Route::get('download/{finalbill}','usercontroller@download');
  Route::get('selectdownload/{id}','usercontroller@selectdownload');
+ Route::get('users', 'graphcontroller@index');
 
+
+});

@@ -2,10 +2,16 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Session\Middleware\StartSession;
+
+use DB;
 use Closure;
 
 class age
 {
+    
+    
+
     /**
      * Handle an incoming request.
      *
@@ -13,21 +19,18 @@ class age
      * @param  \Closure  $next
      * @return mixed
      */
+
     public function handle($request, Closure $next)
     {
-        //
-        //return redirect('login');
-      //  $data=$request->route()->parameters();
-      //$data=$request->user()->name;
-      // print_r($data);die();
+        
 
-        if($request->age>30){
-           echo "success";
-        }else{
-            echo "fail";
-        }
+       if(!session()->has('data')){
+          // echo "hello";die();
+           return redirect('login');
+       }
+
        
-
-        return $next($request);
+    return $next($request);
+       
     }
 }

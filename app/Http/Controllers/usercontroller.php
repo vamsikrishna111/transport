@@ -1,13 +1,18 @@
 <?php
 namespace App\Http\Controllers;
+use Charts;
+
 use Illuminate\Validation\Rule; 
 use DB;
+
 use PDF;
 
 use Redirect;
 use Validator;
 use Response;
 use App\lorrydetails;
+
+
 use Illuminate\Support\Facades\Input;
 
 use App\Employee;
@@ -33,6 +38,20 @@ class usercontroller extends Controller
 
 
     public function login(Request $r){
+       
+       $data= $r->session()->get('data');
+       if(!empty($data)){
+       $name=$data[0]->name;
+       $email=$data[0]->email;
+       if($name=='owner'){
+        DB::update('update owner set active=0 where email = ?',[$email]);
+       }
+       else{
+        DB::update('update supervisor set active=0 where email = ?',[$email]);
+
+       }
+    }
+
         $r->session()->forget('data');
         return view('login');
     }
@@ -126,14 +145,14 @@ class usercontroller extends Controller
          
            // print_r($data);die();
             DB::table('owner')->insert($data);
-   return redirect('login')->with('success','register succesfully please login!');
+   return redirect('/')->with('success','register succesfully please login!');
 //return view('login',['users'=>$users]);
           
         }
        else{
        // DB::table('owner')->insert($data);
         DB::table('supervisor')->insert($data);
-        return redirect('login')->with('success','register succesfully please login!');
+        return redirect('/')->with('success','register succesfully please login!');
 
        }
     
@@ -164,6 +183,11 @@ $r->validate(
       if(count($data)==1){
           $r->session()->put('data', $data);
           $users= DB::select('select * from owner');
+
+          DB::update('update owner set active=1 where email = ?',[$email]);
+
+
+
       
 
           return redirect()->to('/dropdown')->with('users', $users);
@@ -183,7 +207,8 @@ $r->validate(
            if(count($data)==1){
                $r->session()->put('data', $data);
                $users= DB::select('select * from supervisor');
-              
+               DB::update('update supervisor set active=1 where email = ?',[$email]);
+
      
                return redirect()->to('/dropdown')->with('users', $users);
      
@@ -215,9 +240,14 @@ $r->validate(
        $data= $r->session()->get('data');
       // print_r($data);die();
           $companyname1= $data[0]->companyname;
+          $name=$data[0]->name;
         if($companyname== $companyname1){
-           
-            return view('dashboard',['data'=>$data]);
+           $count=DB::select('select  COUNT(DISTINCT(vehiclenumber)) as lcount FROM lorrydetails where companyname=? AND name=?',[$companyname,$name]);
+                // $post3 =DB::select('select COUNT(userss_id) as tcount from posts where userss_id='.$id );
+                $r->session()->put('lcount',$count);
+
+               // print_r($count);die();
+            return view('dashboard',['data'=>$data,'count'=>$count]);
         }else{
             $data= $r->session()->get('data');
        $name=$data[0]->name;
@@ -247,7 +277,10 @@ $r->validate(
       
     
     }
-    
+    public function  viewdashboard(Request $r){
+        $data= $r->session()->get('data');
+        return view('dashboard',['data'=>$data]);
+    }
     public function forgetpassword(){
         return view(' forgetpassword');
     }
@@ -313,7 +346,7 @@ else{
 
   
     if($data1==1){
-       return redirect('login')->with('success','your password is set');
+       return redirect('/')->with('success','your password is set');
 
     }else{
          return back()->with('error','your password is not ready please try again');
@@ -342,7 +375,7 @@ else{
 
   
     if($data1==1){
-       return redirect('login')->with('success','your password is set');
+       return redirect('/')->with('success','your password is set');
 
     }else{
          return back()->with('error','your password is not ready please try again');
@@ -608,6 +641,8 @@ $data= $r->session()->get('data');
         // Finally, you can download the file using download function
         return $pdf->download('lorrydetails.pdf');
     }
+
+  
 }
 
 

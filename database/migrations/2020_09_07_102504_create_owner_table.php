@@ -20,6 +20,8 @@ class CreateOwnerTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('cpassword');
+            $table->string('active');
+
 
 
             $table->timestamps();

@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/get','graphcontroller@index');
+Route::get('/basic','graphcontroller@basic');
+Route::get('/register','graphcontroller@register');
+
+Route::post('/insert','graphcontroller@insert');
+

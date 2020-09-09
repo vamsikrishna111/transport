@@ -16,7 +16,7 @@
 <img src="images/lorry1.jpg" alt=""   width="40" height="30">
 
 @foreach ($data  as $value)
-{{$value->companyname}}
+<a href="viewdashboard">{{$value->companyname}}</a>
 
 @endforeach	
 </div>
@@ -85,9 +85,4 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Menu Toggle Script -->
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+ 
