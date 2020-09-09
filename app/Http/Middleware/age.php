@@ -26,7 +26,7 @@ class age
 
        if(!session()->has('data')){
           // echo "hello";die();
-           return redirect('login');
+           return redirect('/');
        }
 
        
