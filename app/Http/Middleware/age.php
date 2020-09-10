@@ -24,13 +24,16 @@ class age
     {
         
 
-       if(!session()->has('data')){
+       if(session()->has('data')){
           // echo "hello";die();
-           return redirect('/');
+          return $next($request);
+         
+       }else{
+        return redirect('/');
        }
 
        
-    return $next($request);
+    
        
     }
 }

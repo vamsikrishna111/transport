@@ -23,7 +23,9 @@
 				<div class="image-holder">
 					<img src="images/lorry1.jpg" alt="" width="500" height="435">
 				</div>
-				<form method="POST" action="{{url('companylogin')}}">
+				 <form method="POST" action="{{url('companylogin')}}">  
+
+        <!-- <form method="POST" action="{{url('dashboard1')}}">  -->
   {{csrf_field()}}
   @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block">

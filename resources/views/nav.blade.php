@@ -14,11 +14,13 @@
 </div>
 <div class="col-md-2">
 <img src="images/lorry1.jpg" alt=""   width="40" height="30">
+@if (is_array($data))
 
 @foreach ($data  as $value)
-<a href="viewdashboard">{{$value->companyname}}</a>
+<a href="dashboardpage">{{$value->companyname}}</a>
 
 @endforeach	
+@endif
 </div>
 <div class="col-md-5">
 </div>
@@ -35,10 +37,14 @@
         
          <li class="nav-item dropdown">
            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           
+           @if (is_array($data))
+ 
            @foreach ($data  as $value)
 {{$value->name}}
 
 @endforeach
+@endif
 
 
            </a>
@@ -85,4 +91,10 @@
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>
  

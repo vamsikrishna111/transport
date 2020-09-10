@@ -22,10 +22,14 @@
   <div class="formgroup">
    <select class="form-control" id="sel1" name="companyname">
        <option value="" selected disabled>Company</option>
+       @if (is_array($users))
+     
        @foreach ($users as $key=>$book)
-       
-       <option value="{{$book->companyname}}" >{{$book->companyname}}</option>
+     
+       value="{{old('email')}}"
+       <option value="{{$book->companyname}}">{{$book->companyname}}</option>
        @endforeach 
+       @endif
 
          
         

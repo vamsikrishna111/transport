@@ -22,9 +22,10 @@ Route::get('register','usercontroller@register');
 
 Route::post('registerinsert','usercontroller@insertregister');
 Route::post('companylogin','usercontroller@companylogin');
- Route::post('dashboard','usercontroller@dashboard');
- Route::get('dropdown','usercontroller@dropdown');
+// Route::post('dashboard','usercontroller@dashboard');
+ Route::get('dashboard','usercontroller@dashboard');
 
+ Route::get('dropdown','usercontroller@dropdown');
 
 Route::get('forgetpassword','usercontroller@forgetpassword');
 Route::post('conformpassword','usercontroller@conformpassword');
@@ -34,7 +35,8 @@ Route::get('role/{age?}',[
     'uses' => 'usercontroller@divide',
  ]);
  Route::group(['middleware' => ['age']], function () {
-    Route::get('viewdashboard','usercontroller@viewdashboard');
+   // Route::get('viewdashboard','usercontroller@viewdashboard');
+    Route::get('dashboardpage','usercontroller@dashboardpage');
 
  Route::get('lorrydetails','usercontroller@lorrydetails');
  Route::post('insertlorrydetails','usercontroller@insertlorrydetails');

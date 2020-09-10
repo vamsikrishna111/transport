@@ -127,21 +127,6 @@ class usercontroller extends Controller
              $users=DB::select('select * from owner');
            
       
-            // foreach($users as $value)
-
-            //     print_r($value);die();
-             
-            
-            // $myarray = json_decode(json_encode($data), true);
-          
-            // foreach($myarray[0] as $value)
-            // $data= $value;
-           // $users=DB::select('select *from owner');
-            
-               
-            
-          //  $data= $data->name;
-           
          
            // print_r($data);die();
             DB::table('owner')->insert($data);
@@ -175,7 +160,6 @@ $r->validate(
      if($name=="owner"){
 
      
-    // $data= DB::select('select * from company where email = ? and password=?',[$email,$password]);
     $data= DB::select('select * from owner where email = ? and password=?',[$email,$password]);
    // print_r($data);die();
    
@@ -186,15 +170,9 @@ $r->validate(
 
           DB::update('update owner set active=1 where email = ?',[$email]);
 
-
-
-      
-
-          return redirect()->to('/dropdown')->with('users', $users);
-
-
-        // return view('dropdown',['users'=>$users]);
-        // return redirect('dashboard');
+             $data=$r->session()->get('data');
+           
+          return redirect()->to('/dashboard');
       
       }else{
         return back()->with('error','please enter correct cretendials');
@@ -209,12 +187,9 @@ $r->validate(
                $users= DB::select('select * from supervisor');
                DB::update('update supervisor set active=1 where email = ?',[$email]);
 
-     
-               return redirect()->to('/dropdown')->with('users', $users);
-     
-     
-             // return view('dropdown',['users'=>$users]);
-             // return redirect('dashboard');
+               return redirect()->to('/dashboard');
+
+           
            
            }else{
              return back()->with('error','please enter correct cretendials');
@@ -225,62 +200,37 @@ $r->validate(
    
      
     }
-    public function dropdown(){
-       $users= session()->get('users');
+  
+  
+     
       
-       
-    
-        return view('dropdown',['users'=>$users]);
-
-       // return view('dropdown');
-    }
     public function dashboard(Request $r){
-        $companyname=$r->companyname;
-        //echo $companyname;die();
+     
        $data= $r->session()->get('data');
-      // print_r($data);die();
-          $companyname1= $data[0]->companyname;
+       //print_r($data);die();
+          $companyname= $data[0]->companyname;
           $name=$data[0]->name;
-        if($companyname== $companyname1){
+       
            $count=DB::select('select  COUNT(DISTINCT(vehiclenumber)) as lcount FROM lorrydetails where companyname=? AND name=?',[$companyname,$name]);
-                // $post3 =DB::select('select COUNT(userss_id) as tcount from posts where userss_id='.$id );
                 $r->session()->put('lcount',$count);
 
-               // print_r($count);die();
-            return view('dashboard',['data'=>$data,'count'=>$count]);
-        }else{
-            $data= $r->session()->get('data');
-       $name=$data[0]->name;
-      // echo $name;die();
-       if($name=="owner"){
-            $users= DB::select('select * from owner');
-
-
-         //  return redirect()->to('/dropdown')->with('users', $users);
-         return redirect()->to('/dropdown')
-               ->with('error', 'please select register company name')
-               ->with('users', $users);
-       }
-       else{
-        $users= DB::select('select * from supervisor');
+          
+                return redirect('dashboardpage')
+                ->with('count',$count);
+            
+       
         
-
-
-        //  return redirect()->to('/dropdown')->with('users', $users);
-        return redirect()->to('/dropdown')
-              ->with('error', 'please select register company name')
-              ->with('users', $users);
-       }
-          //  return back()->with('error','please select register company');
+    }
+    public function dashboardpage(Request $r){
+        $data= $r->session()->get('data');
+        if(empty($data)){
+            return view('login');
+        }else{
+            return view('dashboard',['data'=>$data]);
 
         }
-      
-    
     }
-    public function  viewdashboard(Request $r){
-        $data= $r->session()->get('data');
-        return view('dashboard',['data'=>$data]);
-    }
+   
     public function forgetpassword(){
         return view(' forgetpassword');
     }
@@ -301,26 +251,7 @@ $r->validate(
     'cpassword' => 'required|same:password',
 ]);
 
-// $update= DB::select('select * from company where email = ?', [$email]);
-// $update1=$update[0]->password;
-// //echo $update1;
 
-// //echo $password;die();
-// if($update1==$password){
-//     return back()->with('error','your old password and new password are same please change');
-
-// }else{
-    // $data= DB::update('update company set password = ?, cpassword=? where email = ?',[$password,$cpassword,$email]);
-
-    // if($data==1){
-    //     return redirect('login')->with('success','your password is set');
-    // }
-    // else{
-    //     return back()->with('error','please enter register email');
-        
-    // }
-
-//}
     $name=$r->name;
     $email=$r->email;
     $password=$r->password;
@@ -407,21 +338,7 @@ else{
      }
      public function insertlorrydetails(Request $request){
         
-     // print_r($request->all());die();
-   // print_r($request->hasFile('finalbill'));die();
-    //   if ($request->hasFile('finalbill')) {
-       
-    //     $image = $request->file('finalbill');
-
-    //      $filename = $image->getClientOriginalName();
-        
-    //      $destinationPath = public_path('/images');
-    //      $image->move($destinationPath, $filename);
-    // $validator = Validator::make($request->all(), $this->rules);
-    // if ($validator->fails()) {
-    //     return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
-    // } else {
-       // print_r($request->all());die();
+    
        $request->validate([
         
             'vehiclenumber' => 'required',
@@ -499,21 +416,7 @@ else{
      }
      public function lorrydetailsupdate(Request $request,$id){
         
-        // $request->validate([
-        //     'vehiclenumber'=>'required',
-        //     'startlocation' => 'required',
-        //     'endlocation' => 'required',
-        //     'tripcost' => 'required',
-        //     'advance' => 'required',
-        //     'totalkm' => 'required',
-        //     'dieselcost' => 'required',
-        //     'existingdiesel' => 'required',
-        //     'fillup' => 'required',
-        //     'totaldiesel' => 'required',
-
-
-
-        //  ]);
+       
         $validator = Validator::make($request->all(), $this->rules);
         if ($validator->fails()) {
             return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
@@ -562,25 +465,7 @@ else{
         $post->save();
         return response()->json($post);
     }
-        // if ($request->hasFile('filename')) {
-        //     $image = $request->file('filename');
-        //    // dd($image);
-        //     $filename = $image->getClientOriginalName();
-        //    // dd($name);
-        //   //  $size = $image->getClientSize();
-        // //  dd($size);
-        //     $destinationPath = public_path('/images');
-        //     $image->move($destinationPath, $filename);
-           
-        // $users=lorrydetails::where('id',[$id])->update(['vehiclenumber'=>$request->vehiclenumber,'startlocation'=>$request->startlocation,'endlocation'=>$request->endlocation,'tripcost'=>$request->tripcost,'advance'=>$request->advance,'totalkm'=>$request->totalkm,'dieselcost'=>$request->dieselcost,'existingdiesel'=>$request->existingdiesel,'fillup'=>$request->fillup,'totaldiesel'=>$request->totaldiesel,'finalbill'=>$filename]);
-        //  //dd($users);
-        //       return redirect('lorrydetails');
-        // }
-        // else{
-        //     $users=lorrydetails::where('id',[$id])->update(['vehiclenumber'=>$request->vehiclenumber,'startlocation'=>$request->startlocation,'endlocation'=>$request->endlocation,'tripcost'=>$request->tripcost,'advance'=>$request->advance,'totalkm'=>$request->totalkm,'dieselcost'=>$request->dieselcost,'existingdiesel'=>$request->existingdiesel,'fillup'=>$request->fillup,'totaldiesel'=>$request->totaldiesel]);
-        //  //dd($users);
-        //       return redirect('lorrydetails');
-        // }
+       
         }   
      }
      public function delete($id){
